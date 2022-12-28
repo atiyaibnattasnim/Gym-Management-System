@@ -222,3 +222,130 @@ void searchMember()
         close(fp);
     }
 }
+void viewMember(){
+      int i=0,j;
+      system("cls");
+      gotoxy(2,2);
+      printf("\n CATEGORY === ID ==== NAME ======== ADDRESS ===== CONTACT ===== JOINING DATE ");
+      j=4;
+      fp=fopen("stf.dat","rb");
+      while(fread(&m,sizeof(m),1,fp)==1){
+      gotoxy(1,j);
+      printf("%s",m.cat);
+      gotoxy(14,j);
+      printf("%d",m.id);
+      gotoxy(22,j);
+      printf("%s",m.name);
+      gotoxy(36,j);
+      printf("%s",m.Address);
+      gotoxy(50,j);
+      printf("%i",m.contact);
+      gotoxy(67,j);
+      printf("%s",m.membersince);
+      gotoxy(68,j);
+      printf("\n\n");
+      j++;
+   }
+     fclose(fp);
+     gotoxy(35,25);
+     returnfunc();
+  }
+
+void editMember(){
+     system("cls");
+      int c=0;
+      int d,e;
+      char another='y';
+      while(another=='y'){
+          system("cls");
+          gotoxy(15,6);
+      printf("Enter Id to be edited:");
+      scanf("%d",&d);
+      fp=fopen("stf.dat","rb+");
+      while(fread(&m,sizeof(m),1,fp)==1){
+           if(checkid(d)==0){
+           gotoxy(15,7);
+      printf("This Member is available");
+           gotoxy(15,8);
+      printf("The ID:%d",m.id);
+           gotoxy(15,9);
+      printf("Enter new name:");
+      scanf("%s",m.name);
+           gotoxy(15,10);
+      printf("Enter new Address:");
+      scanf("%s",m.Address);
+           gotoxy(15,11);
+      printf("Enter new Contact:");
+      scanf("%i",&m.contact);
+           gotoxy(15,12);
+      printf("Enter New Membership date:");
+      scanf("%s",&m.membersince);
+           gotoxy(15,13);
+      printf("The record is edited");
+      fseek(fp,ftell(fp)-sizeof(m),0);
+      fwrite(&m,sizeof(m),1,fp);
+      fclose(fp);
+           c=1;
+        }
+       if(c==0){
+           gotoxy(15,9);
+       printf("No record found");
+     }
+   }
+           gotoxy(15,16);
+       printf("Modify another Record?(Y/N)");
+       fflush(stdin);
+          another=getch() ;
+        }
+returnfunc();
+}
+
+void returnfunc(){
+{    gotoxy(15,20);
+     printf("Press ENTER to return to main menu");
+}
+     m:
+     if(getch()==13)
+     mainmenu();
+     else
+     goto m;
+}
+
+int getdata(){
+         int t;
+         gotoxy(20,3);
+         printf("Enter Information");
+         gotoxy(20,4);
+         printf("Category:");
+         gotoxy(31,5);
+         printf("%s",catagories[s-1]);
+         gotoxy(21,6);
+         printf("ID:\t");
+         gotoxy(30,6);
+         scanf("%d",&t);
+     if(checkid(t) == 0){
+         gotoxy(21,13);
+     printf("The id already exists");
+         getch();
+     mainmenu();
+   return 0;
+}
+   m.id=t;
+        gotoxy(21,7);
+        printf("Name:");
+        gotoxy(33,7);
+        scanf("%s",m.name);
+        gotoxy(21,8);
+        printf("Address:");
+        gotoxy(30,8);
+        scanf("%s",m.Address);
+        gotoxy(21,9);
+        printf("Contact:");
+        gotoxy(31,9);
+        scanf("%i",&m.contact);
+        gotoxy(21,10);
+        printf("Joining date:");
+        scanf("%s",&m.membersince);
+        gotoxy(31,17);
+     return 1;
+ }

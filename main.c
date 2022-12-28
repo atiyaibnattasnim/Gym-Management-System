@@ -98,4 +98,127 @@ void addMember(){
     addMember();
     }
   }
+  
+void deleteMember()
+{
+    system("cls");
+    int id;
+    char another='y';
+    while(another=='y')
+    {
+    system("cls");
+    gotoxy(10,5);
+    printf("Enter ID:");
+    scanf("%d",&id);
+    fp=fopen("stf.dat","rb+");
+    rewind(fp);
+    while(fread(&m,sizeof(m),1,fp)==1)
+    {
+        if(m.id==id)
+        {
+        gotoxy(10,7);
+        printf("The ID is available");
+        gotoxy(10,8);
+        printf("Name is %s",m.name);
+        gotoxy(10,9);
+        findMember='t';
+        }
+    }
+    if(findMember!='t')
+    {
+    gotoxy(10,10);
+    printf("ID is not found");
+    if(getch())
+    mainmenu();
+    }
+    if(findMember=='t' )
+    {
+    gotoxy(10,9);
+    printf("Do you want to delete it?(Y/N):");
+    if(getch()=='y')
+    {
+    ft=fopen("test.dat","wb+");
+    rewind(fp);
+    while(fread(&m,sizeof(m),1,fp)==1)
+    {
+        if(m.id!=id)
+        {
+        fseek(ft,0,SEEK_CUR);
+        fwrite(&m,sizeof(m),1,ft);
+        }
+    }
+    fclose(ft);
+    fclose(fp);
+    remove("stf.dat");
+    rename("test.dat","stf.dat");
+    fp=fopen("stf.dat","rb+");
+    if(findMember=='t')
+    {
+        gotoxy(10,10);
+        printf("The record is sucessfully deleted");
+        gotoxy(10,11);
+        printf("\n\tDelete another record?(Y/N)");
+    }
+        }else
+         mainmenu();
+         fflush(stdin);
+         another=getch();
+        }
+    }
+    gotoxy(10,15);
+    mainmenu();
+}
 
+void searchMember()
+{
+    system("cls");
+    int id;
+    gotoxy(20,10);
+    printf("Search By ID");
+    fp=fopen("stf.dat","rb+");
+    rewind(fp);
+    system("cls");
+    gotoxy(25,4);
+    printf("Enter the id:");
+    scanf("%d",&id);
+    gotoxy(20,7);
+    while(fread(&m,sizeof(m),1,fp)==1)
+    {
+        if(m.id==id)
+        {
+            Sleep(2);
+            gotoxy(20,6);
+        printf("The Record is available\n");
+              gotoxy(20,8);
+        printf("ID:%d",m.id);
+              gotoxy(20,9);
+        printf("Category:%s",m.cat);
+              gotoxy(20,10);
+        printf("Name:%s",m.name);
+              gotoxy(20,11);
+        printf("Address:%s ",m.Address);
+              gotoxy(20,12);
+        printf("Contact:%i ",m.contact);
+              gotoxy(20,13);
+        printf("Member Since:%s",m.membersince);
+        findMember='t';
+        }
+    
+    if(findMember!='t')
+    {
+        printf("No Record Found");
+    }
+        gotoxy(20,17);
+        printf("Try another search?(Y/N)");
+    if(getch()=='y')
+        searchMember();
+    else
+    {
+        mainmenu();
+        break;
+    }
+        getch();
+        searchMember();
+        close(fp);
+    }
+}

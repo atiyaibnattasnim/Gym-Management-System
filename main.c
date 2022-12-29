@@ -61,6 +61,66 @@ struct member{
 };
 
 struct member m;
+int main(){
+   Password();
+   getch();
+   return 0;
+}
+
+void mainmenu(){
+    system("cls");
+    int i;
+    gotoxy(20,3);
+    printf(" \t\tMAIN MENU \n ");
+    gotoxy(20,5);
+    printf("1. Add Members");
+    gotoxy(20,7);
+    printf("2. Delete Members");
+    gotoxy(20,9);
+    printf("3. Search Members");
+    gotoxy(20,11);
+    printf("4. Display Member's list");
+    gotoxy(20,13);
+    printf("5. Edit Members information");
+    gotoxy(20,15);
+    printf("6. Close Application");
+    gotoxy(20,22);
+    t();
+    gotoxy(20,18);
+    printf("Enter your choice:");
+
+  switch(getch()){
+     case '1':
+         addMember();
+         break;
+     case '2':
+         deleteMember();
+         break;
+     case '3':
+         searchMember();
+         break;
+     case '4':
+         viewMember();
+         break;
+     case '5':
+         editMember();
+         break;
+     case '6':
+{
+    system("cls");
+    gotoxy(16,3);
+    printf("\tGYM Management System");
+    exit(0);
+}
+    default:
+{
+    gotoxy(10,25);
+    printf("Invalid option.");
+    if(getch())
+    mainmenu();
+  }
+ }
+}
 void addMember(){
      system("cls");
      int i;

@@ -349,3 +349,47 @@ int getdata(){
         gotoxy(31,17);
      return 1;
  }
+
+int checkid(int t){
+        rewind(fp);
+    while(fread(&m,sizeof(m),1,fp)==1)
+        if(m.id==t)
+         return 0;
+         return 1;
+   }
+
+int t(void){
+     time_t t;
+     time(&t);
+     printf("Date and time:%s\n",ctime(&t));
+   return 0 ;
+}
+
+void Password(){
+     system("cls");
+     char d[25]="Password Protected";
+     char ch,pass[10];
+     int i=0,j;
+     gotoxy(10,5);
+     printf("ENTER SYSTEM");
+     printf("\n\nEnter Password:");
+     while(ch!=13){
+            ch=getch();
+        if(ch!=13 && ch!=8){
+        putch('*');
+        pass[i] = ch;
+        i++;
+     }
+   }
+     pass[i] = '\0';
+     if(strcmp(pass,password)==0){
+     printf("\n\n\n\t\tPassword matched!!");
+     printf("\n\n\tPress any key to countinue.....");
+     getch();
+     mainmenu();
+   }else{
+     printf("\n\n\n\t\t\aWarning!! \n\t   Incorrect Password");
+     getch();
+     Password();
+   }
+ }

@@ -26,8 +26,6 @@ int getdata();
 int checkid(int);
 int t(void);
 void Password();
-void issuerecord();
-void loaderanim();
 
 
 FILE *fp,*ft,*fs;
